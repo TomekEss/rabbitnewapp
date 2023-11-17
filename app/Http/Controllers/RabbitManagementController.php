@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rabbits;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Http\Requests\StoreRabbitRequest;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class RabbitManagementController extends Controller
 {
@@ -37,11 +35,9 @@ class RabbitManagementController extends Controller
                 'note' => $req->note
             ]);
         }catch (\Illuminate\Database\QueryException $e) {
-            return back()->with('message', ['asdsa','Wystąpił błąd zapisu w bazie danych'])->with('tittle', 'TYTUJJJK');
-        }catch (\Exception $e){
-            error_log('oblsuga');
+            return back();
         }
 
-        return redirect()->route('management.rabbits.index')->with('success', 'Zapisano w bazie');
+        return redirect()->route('management.rabbits.index');
     }
 }

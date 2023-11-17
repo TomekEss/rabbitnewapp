@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
-use mysql_xdevapi\Exception;
+use App\Http\Requests\UserLoginRequest;
 
 class UserController extends Controller
 {
@@ -22,7 +22,7 @@ class UserController extends Controller
         }
     }
 
-    public function userStore(Request $req)
+    public function userStore(UserLoginRequest $req)
     {
         $req->validate([
             'login' => 'required',
@@ -57,22 +57,15 @@ class UserController extends Controller
 
     public function loginAttempt(Request $req)
     {
-        // Walidacja danych formularza
-        $req->validate([
-            'name' => 'required',
-            'password' => 'required',
-        ]);
-
         // Próba logowania
-        if (Auth::attempt(['name' => $req->name, 'password' => $req->password])) {
+        if (Auth::attempt(['name' => $req->login, 'password' => $req->password])) {
             // Jeśli logowanie się powiedzie, przekieruj do strony głównej
             return redirect()->to(route('welcome'));
         }
-
         // Jeśli logowanie się nie powiedzie, wyświetl komunikat o błędzie
         return back()->withErrors([
             'email' => 'Podane dane są nieprawidłowe.',
-        ])->withInput($request->only('email', 'remember'));
+        ])->withInput($req->only('email', 'remember'));
     }
 
 
