@@ -17,10 +17,12 @@
 {{--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">--}}
       <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
       <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+      <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/sign-in.css') }}" rel="stylesheet">
+
   </head>
 
   <header>
@@ -29,10 +31,14 @@
 
   <body>
 
-    @yield('content')
+  <div class="starter" style="padding-bottom: 120px;"></div>
 
+    @yield('content')
+  @include('sweetalert::alert')
   </body>
 
   <script src="{{ asset('js/bootstrap.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+
+
 </html>
