@@ -37,3 +37,15 @@ Route::get('/login',[UserController::class, 'loginView'])->name('login');
 
 Route::post('/login/attempt', [UserController::class, 'loginAttempt'])->name('user.login');
 
+// Management dla królików
+Route::middleware('auth')->group(function () {
+    //Lista królików
+    Route::get('/management/rabbits/index', [RabbitManagementController::class, 'index'])->name('management.rabbits.index');
+    //Dodawanie królików
+    Route::get('/management/rabbits/create', [RabbitManagementController::class, 'create'])->name('management.rabbits.create');
+    Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
+    //Edycja królików
+    Route::get('/management/rabbits/edit', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
+
+});
+
