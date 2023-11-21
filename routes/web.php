@@ -47,6 +47,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
     //Edycja królików
     Route::get('/management/rabbits/edit', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
+});
 
+// Edycja użytkownika
+Route::middleware('auth')->group(function () {
+    //edycja użytkownika
+    Route::get('/user/edit', [UserController::class, 'useredit'])->name('user.edit');
+    //aktualizacja danych uzytkownika
+    Route::post('/user/{user}/update',[UserController::class, 'userupdate'])->name('user.update');
 });
 

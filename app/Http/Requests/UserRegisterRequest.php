@@ -3,17 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class StoreRabbitRequest extends FormRequest
+class UserRegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        abort_if(!Auth::check(), 403);
-
         return true;
     }
 
@@ -25,12 +22,9 @@ class StoreRabbitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'born' => 'nullable',
-            'gender' => 'required',
-            'deworming' => 'nullable',
-            'note' => 'nullable',
-            'photo' => 'nullable',
+            'login' => 'required',
+            'password' => 'required|min:5',
+            'email' => 'required',
         ];
     }
 }

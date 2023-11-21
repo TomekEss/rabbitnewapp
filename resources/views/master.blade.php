@@ -31,7 +31,7 @@
 
   <body>
 
-  <div class="starter" style="padding-bottom: 120px;"></div>
+  <div class="starter" style="padding-bottom: 80px;"></div>
 
     @yield('content')
   @include('sweetalert::alert')

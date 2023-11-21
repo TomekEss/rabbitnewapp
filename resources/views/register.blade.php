@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="register" style="margin-top: 120px">
+<div class="register">
     <main class="form-signin w-100 m-auto">
       <form action="{{ route('user.store') }}" method="POST">
           @csrf
@@ -14,20 +14,21 @@
         <div class="form-floating">
           <input type="text" class="form-control" name="login" placeholder="Login">
           <label for="login">Wpisz login</label>
+            @error('login')<strong>{{ $message }}</strong>@enderror
         </div>
+          <div class="form-floating">
+              <input type="email" class="form-control" name="email" placeholder="Email">
+              <label for="email">Wpisz adres email</label>
+              @error('email')<strong>{{ $message }}</strong>@enderror
+          </div>
         <div class="form-floating">
           <input type="password" class="form-control" name="password" placeholder="Hasło">
           <label for="password">Wpisz hasło</label>
+            @error('password')<strong>{{ $message }}</strong>@enderror
         </div>
 
-        <div class="form-check text-start my-3">
-          <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Zapamiętaj mnie
-          </label>
-        </div>
         <button class="btn btn-primary w-100 py-2" type="submit">Zarejestruj</button>
-        <p class="mt-5 mb-3 text-body-secondary text-center">&copy;2023 - Tomasz Siemek</p>
+        <p class="mt-3 mb-3 text-body-secondary text-center">&copy;2023 - Tomasz Siemek</p>
       </form>
     </main>
 </div>

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class WelcomeController extends Controller
 {
     public function welcomeView() :View
     {
+        abort_if(!auth()->check(), 403, 'Nie jesteś zalogowany.');
+
         return \view('welcome');
     }
 }

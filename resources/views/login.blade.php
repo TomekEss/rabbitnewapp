@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="register" style="margin-top: 120px">
+<div class="register">
     <main class="form-signin w-100 m-auto">
       <form action="{{ route('user.login') }}" method="POST">
           @csrf
@@ -26,11 +26,33 @@
             Zapamiętaj mnie
           </label>
         </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">Zarejestruj</button>
+          @if ($errors->any())
+              <div class="alert alert-danger">
+                  <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Zaloguj</button>
         <p class="mt-5 mb-3 text-body-secondary text-center">&copy;2023 - Tomasz Siemek</p>
       </form>
     </main>
 </div>
+
+@if($errors->any())
+    <script>
+        swal.fire({
+            title: "Wystąpił błąd",
+            text:  "Nieprawidłowy login lub hasło",
+            icon: "warning",
+            button:true,
+            button:"OK"
+        });
+    </script>
+@endif
 
 
 @endsection

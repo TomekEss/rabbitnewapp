@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 use App\Http\Requests\UserLoginRequest;
 
@@ -22,16 +25,18 @@ class UserController extends Controller
         }
     }
 
-    public function userStore(UserLoginRequest $req)
+    public function userStore(UserRegisterRequest $req)
     {
         $req->validate([
             'login' => 'required',
             'password' => 'required|min:5',
+            'email' => 'required',
         ]);
 
         try {
             $user = User::create([
                 'name' => $req->login,
+                'email' => $req->email,
                 'password' => Hash::make($req->password),
             ]);
 
@@ -47,7 +52,7 @@ class UserController extends Controller
     public function userLogout()
     {
         Auth::logout();
-        return redirect()->to(route('welcome'));
+        return redirect()->to(route('login'));
     }
 
     public function loginView() :View
@@ -57,15 +62,48 @@ class UserController extends Controller
 
     public function loginAttempt(Request $req)
     {
-        // Próba logowania
-        if (Auth::attempt(['name' => $req->login, 'password' => $req->password])) {
-            // Jeśli logowanie się powiedzie, przekieruj do strony głównej
+            if (!Auth::validate(['name' => $req->login, 'password' => $req->password])) {
+                // Utworzenie nowego obiektu MessageBag z błędami
+                $errors = new MessageBag(['login' => 'Nieprawidłowy login lub hasło']);
+
+                // Przekazanie błędów do sesji
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
+
+            // Jeśli dane są prawidłowe, zaloguj użytkownika i przekieruj
+            Auth::attempt(['name' => $req->login, 'password' => $req->password]);
             return redirect()->to(route('welcome'));
+    }
+
+    public function useredit()
+    {
+        $user = Auth::user();
+        $changepassword = 0;
+
+        return view('useredit', compact('user','changepassword'));
+    }
+
+    public function userupdate(User $user, Request $req)
+    {
+
+
+
+        if (Auth::attempt(['name' => $user->name, 'password' => $req->password])) {
+            try {
+                $user->update([
+                   'name' => $req->login,
+                   'password' => $req->newpassword,
+                ]);
+
+                return redirect()->route('welcome');
+            }catch (QueryException $e){
+                return back()->withErrors(['somethink' => 'Błąd z bazy danych']);
+            }
         }
-        // Jeśli logowanie się nie powiedzie, wyświetl komunikat o błędzie
+
         return back()->withErrors([
-            'email' => 'Podane dane są nieprawidłowe.',
-        ])->withInput($req->only('email', 'remember'));
+            'Somethink' => 'Coś poszło nie tak'
+        ]);
     }
 
 

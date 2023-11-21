@@ -25,14 +25,19 @@ class RabbitManagementController extends Controller
 
     public function store(StoreRabbitRequest $req)
     {
+        if ($req->hasFile('image'))
+        {
+            $file = $req->file('image');
+            $photo = file_get_contents($file);
+        }
         try {
-            error_log('dsa');
             Rabbits::create([
                 'name' => $req->name,
                 'born' => $req->born,
                 'gender' => $req->gender,
                 'deworming' => $req->deworming,
-                'note' => $req->note
+                'note' => $req->note,
+                'image' => $photo
             ]);
         }catch (\Illuminate\Database\QueryException $e) {
             return back();
