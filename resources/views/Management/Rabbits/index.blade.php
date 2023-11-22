@@ -10,10 +10,10 @@
                         <a href=" {{ route('management.rabbits.create') }}" class="btn btn-bd-primary">Dodaj królika +</a>
                     </div>
                     <div class="col">
-                        Column
+
                     </div>
                     <div class="col">
-                        Column
+
                     </div>
                 </div>
             </div>
@@ -27,6 +27,7 @@
                           <th scope="col">Płeć</th>
                           <th scope="col">Data urodzenia</th>
                           <th scope="col">Odrobaczenie</th>
+                          <th scope="col"></th>
                         </thead>
                         <tbody>
                         @foreach($rabbits as $rabbit)
@@ -36,10 +37,24 @@
                             <td>{{ $rabbit->gender }}</td>
                             <td>{{ $rabbit->born }}</td>
                             <td>{{ $rabbit->deworming }}</td>
+                            <td>
+                                <div class="d-flex align-content-center justify-content-center">
+
+                                <form action="{{ route('management.rabbits.delete', ['rabbit' => $rabbit]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                </form>
+
+                                <a href="{{ route('management.rabbits.edit', ['rabbit' => $rabbit]) }}" class="btn bg-info mx-2">Szczegóły</a>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
+                    <div class="d-flex align-items-end justify-content-end"
+                    {!! $rabbits->links() !!}
+
                 </div>
         </div>
     </div>

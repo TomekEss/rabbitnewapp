@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rabbits;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Http\Requests\StoreRabbitRequest;
 
@@ -10,7 +11,7 @@ class RabbitManagementController extends Controller
 {
     public function index(): View
     {
-        $rabbits = Rabbits::all();
+        $rabbits = Rabbits::paginate(15);
 
         return view('Management.Rabbits.index', compact('rabbits'));
     }
@@ -20,9 +21,11 @@ class RabbitManagementController extends Controller
         return view('Management.Rabbits.create');
     }
 
-    public function edit()
+    public function edit(Rabbits $rabbit)
     {
-        return view('Management.Rabbits.edit');
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        return view('Management.Rabbits.edit', compact('rabbit'));
     }
 
     public function store(StoreRabbitRequest $req)
@@ -49,4 +52,14 @@ class RabbitManagementController extends Controller
 
         return redirect()->route('management.rabbits.index');
     }
+
+    public function delete(Rabbits $rabbit)
+    {
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        $rabbit->delete();
+
+        return redirect()->route('management.rabbits.index');
+    }
+
 }

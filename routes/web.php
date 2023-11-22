@@ -46,7 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/management/rabbits/create', [RabbitManagementController::class, 'create'])->name('management.rabbits.create');
     Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
     //Edycja królików
-    Route::get('/management/rabbits/edit', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
+    Route::get('/management/rabbits/edit/{rabbit}', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
+    //Usuwanie królików
+    Route::post('/management/rabbits/delete/{rabbit}', [RabbitManagementController::class, 'delete'])->name('management.rabbits.delete');
 });
 
 // Edycja użytkownika
