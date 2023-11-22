@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form class="row g-3" action="{{ route('management.rabbits.store') }}" method="POST">
+                <form class="row g-3" action="{{ route('management.rabbits.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6">
                         <label for="inputName" class="form-label">Imię</label>
@@ -41,9 +41,13 @@
                     <div class="col-md-6">
                         <label for="inputNote" class="form-label">Notatka</label>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <textarea class="form-control" name="note" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                             @error('note')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputPhoto" class="form-label">Zdjęcie</label>
+                        <input class="form-control" name="photo" type="file" id="photo">
                     </div>
                     <div class="col-12 d-flex align-items-end">
 

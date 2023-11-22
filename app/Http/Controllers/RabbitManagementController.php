@@ -10,7 +10,9 @@ class RabbitManagementController extends Controller
 {
     public function index(): View
     {
-        return view('Management.Rabbits.index');
+        $rabbits = Rabbits::all();
+
+        return view('Management.Rabbits.index', compact('rabbits'));
     }
 
     public function create()
@@ -25,11 +27,12 @@ class RabbitManagementController extends Controller
 
     public function store(StoreRabbitRequest $req)
     {
-        if ($req->hasFile('image'))
+        if ($req->hasFile('photo'))
         {
-            $file = $req->file('image');
+            $file = $req->file('photo');
             $photo = file_get_contents($file);
         }
+
         try {
             Rabbits::create([
                 'name' => $req->name,
@@ -37,9 +40,10 @@ class RabbitManagementController extends Controller
                 'gender' => $req->gender,
                 'deworming' => $req->deworming,
                 'note' => $req->note,
-                'image' => $photo
+                'photo' => $photo
             ]);
         }catch (\Illuminate\Database\QueryException $e) {
+            dd($e);
             return back();
         }
 

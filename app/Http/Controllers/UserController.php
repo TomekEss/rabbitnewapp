@@ -85,25 +85,37 @@ class UserController extends Controller
 
     public function userupdate(User $user, Request $req)
     {
+        // Walidacja w celu zapewnienia, że użytkownik zmienia dane swojego konta.
+        $authID = Auth::id();
+        $currentUserID = $user->id;
 
+        abort_if($authID !== $currentUserID && !Auth::check(), '403', 'Brak dostępu');
 
+        if($req->password !== null){
+            if (Auth::attempt(['name' => $user->name, 'password' => $req->password])) {
+                try {
+                    $user->update([
+                        'name' => $req->login,
+                        'password' => $req->newpassword,
+                    ]);
 
-        if (Auth::attempt(['name' => $user->name, 'password' => $req->password])) {
+                    return redirect()->route('welcome');
+                }catch (QueryException $e){
+                    return back()->withErrors(['somethink' => 'Błąd wpius do bazy danych']);
+                }
+            }
+        }
+
             try {
                 $user->update([
                    'name' => $req->login,
-                   'password' => $req->newpassword,
                 ]);
-
                 return redirect()->route('welcome');
             }catch (QueryException $e){
                 return back()->withErrors(['somethink' => 'Błąd z bazy danych']);
             }
-        }
 
-        return back()->withErrors([
-            'Somethink' => 'Coś poszło nie tak'
-        ]);
+        return back()->withErrors(['somethink' => 'Coś poszło nie tak']);
     }
 
 

@@ -30,7 +30,7 @@ class StoreRabbitRequest extends FormRequest
             'gender' => 'required',
             'deworming' => 'nullable',
             'note' => 'nullable',
-            'photo' => 'nullable',
+            'photo' => 'nullable|image|max:2048',
         ];
     }
 }

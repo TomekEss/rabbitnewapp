@@ -18,9 +18,28 @@
                 </div>
             </div>
                 <div class="card-body">
-                    <h5 class="card-title">Zarządzaj klatkami</h5>
-                    <p class="card-text">Panel służący do zarządzania klatkami</p>
-                    <a href="#" class="btn btn-primary">Przejdź</a>
+                    <h5 class="card-title">Zarządzaj królikami</h5>
+                    <p class="card-text">Panel służący do zarządzania królikami</p>
+                    <table class="table table-dark table-hover">
+                        <thead>
+                          <th scope="col">ID</th>
+                          <th scope="col">Nazwa</th>
+                          <th scope="col">Płeć</th>
+                          <th scope="col">Data urodzenia</th>
+                          <th scope="col">Odrobaczenie</th>
+                        </thead>
+                        <tbody>
+                        @foreach($rabbits as $rabbit)
+                        <tr class="table-active">
+                            <td>{{ $rabbit->id }}</td>
+                            <td>{{ $rabbit->name }}</td>
+                            <td>{{ $rabbit->gender }}</td>
+                            <td>{{ $rabbit->born }}</td>
+                            <td>{{ $rabbit->deworming }}</td>
+                        </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
         </div>
     </div>

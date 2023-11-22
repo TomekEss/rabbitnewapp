@@ -31,12 +31,12 @@
                       <label class="form-label" for="password" id="currentPasswordLabel">Obecne hasło</label>
               <div class="input-group mb-3">
                   <button class="btn btn-outline-secondary" type="button" id="button-addon1">Zmień hasło</button>
-                  <input type="text" class="form-control" name="password" id="password" disabled>
+                  <input type="password" class="form-control" name="password" id="password" disabled>
               </div>
               </div>
               <div class="col-6">
                   <label class="form-label" for="password" id="newPasswordLabel">Nowe hasło</label>
-                  <input type="text" data-changepassword class="form-control" name="newpassword" id="newPasswordInput">
+                  <input type="password" data-changepassword class="form-control" name="newpassword" id="newPasswordInput">
               </div>
           </div>
           </div>
