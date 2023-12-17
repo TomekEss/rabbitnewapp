@@ -29,6 +29,7 @@ class StoreRabbitRequest extends FormRequest
             'born' => 'nullable',
             'gender' => 'required',
             'deworming' => 'nullable',
+            'breed' => 'nullable',
             'note' => 'nullable',
             'photo' => 'nullable|image|max:2048',
         ];

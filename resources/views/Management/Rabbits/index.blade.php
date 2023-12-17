@@ -25,6 +25,7 @@
                           <th scope="col">ID</th>
                           <th scope="col">Nazwa</th>
                           <th scope="col">Płeć</th>
+                          <th scope="col">Rasa</th>
                           <th scope="col">Data urodzenia</th>
                           <th scope="col">Odrobaczenie</th>
                           <th scope="col"></th>
@@ -35,6 +36,7 @@
                             <td>{{ $rabbit->id }}</td>
                             <td>{{ $rabbit->name }}</td>
                             <td>{{ $rabbit->gender }}</td>
+                            <td>{{ $rabbit->breed }}</td>
                             <td>{{ $rabbit->born }}</td>
                             <td>{{ $rabbit->deworming }}</td>
                             <td>

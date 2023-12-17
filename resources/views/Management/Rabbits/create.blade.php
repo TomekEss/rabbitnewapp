@@ -29,6 +29,11 @@
                         @error('gender')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                     </div>
                     <div class="col-md-6">
+                        <label for="inputBreed" class="form-label">Rasa</label>
+                        <input type="text" class="form-control" name="breed" id="breed">
+                        @error('breed')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
+                    </div>
+                    <div class="col-md-6">
                         <label for="inputBorn" class="form-label">Data urodzenia</label>
                         <input type="date" name="born" class="form-control" id="inputBorn">
                         @error('born')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
@@ -39,15 +44,15 @@
                         @error('deworming')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                     </div>
                     <div class="col-md-6">
+                        <label for="inputPhoto" class="form-label">Zdjęcie</label>
+                        <input class="form-control" name="photo" type="file" id="photo">
+                    </div>
+                    <div class="col-md-6">
                         <label for="inputNote" class="form-label">Notatka</label>
                         <div class="form-floating">
                             <textarea class="form-control" name="note" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
                             @error('note')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="inputPhoto" class="form-label">Zdjęcie</label>
-                        <input class="form-control" name="photo" type="file" id="photo">
                     </div>
                     <div class="col-12 d-flex align-items-end">
 

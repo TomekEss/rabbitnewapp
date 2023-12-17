@@ -11,5 +11,5 @@ class Rabbits extends Model
 
     protected $table= 'rabbits';
 
-    protected $fillable = ['name','gender','born','deworming','note','photo'];
+    protected $fillable = ['name','gender','born','deworming','note','photo','breed'];
 }

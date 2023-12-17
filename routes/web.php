@@ -17,7 +17,10 @@ use App\Http\Controllers\RabbitManagementController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (\Illuminate\Support\Facades\Auth::check()){
+        return view('welcome');
+    }
+    return redirect(\route('login'));
 });
 Route::get('/header', function () {
     return view('layouts.header');

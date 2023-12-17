@@ -30,10 +30,13 @@ class RabbitManagementController extends Controller
 
     public function store(StoreRabbitRequest $req)
     {
+
         if ($req->hasFile('photo'))
         {
             $file = $req->file('photo');
             $photo = file_get_contents($file);
+        }else{
+            $photo = null;
         }
 
         try {
@@ -42,6 +45,7 @@ class RabbitManagementController extends Controller
                 'born' => $req->born,
                 'gender' => $req->gender,
                 'deworming' => $req->deworming,
+                'breed' => $req->breed,
                 'note' => $req->note,
                 'photo' => $photo
             ]);
