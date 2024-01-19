@@ -46,7 +46,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-danger">Usuń</button>
                                 </form>
-
+{{--            //Komenrarz--}}
                                 <a href="{{ route('management.rabbits.show', ['rabbit' => $rabbit]) }}" class="btn bg-info mx-2">Szczegóły</a>
                                 </div>
                             </td>
