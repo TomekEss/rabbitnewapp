@@ -28,6 +28,13 @@ class RabbitManagementController extends Controller
         return view('Management.Rabbits.edit', compact('rabbit'));
     }
 
+    public function show(Rabbits $rabbit)
+    {
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        return view('Management.Rabbits.show', compact('rabbit'));
+    }
+
     public function store(StoreRabbitRequest $req)
     {
 

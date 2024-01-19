@@ -17,6 +17,7 @@
 {{--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">--}}
       <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
       <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+      <link href="{{ asset('fontawesome-free-6.5.1-web/all.min.css') }}" rel="stylesheet">
       <script src="{{ asset('vendor/sweetalert/sweetalert.all.js') }}"></script>
 
 

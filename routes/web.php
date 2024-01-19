@@ -45,6 +45,8 @@ Route::post('/login/attempt', [UserController::class, 'loginAttempt'])->name('us
 Route::middleware('auth')->group(function () {
     //Lista królików
     Route::get('/management/rabbits/index', [RabbitManagementController::class, 'index'])->name('management.rabbits.index');
+    //Szczegóły królika
+    Route::get('/management/rabbits/show/{rabbit}', [RabbitManagementController::class, 'show'])->name('management.rabbits.show');
     //Dodawanie królików
     Route::get('/management/rabbits/create', [RabbitManagementController::class, 'create'])->name('management.rabbits.create');
     Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');

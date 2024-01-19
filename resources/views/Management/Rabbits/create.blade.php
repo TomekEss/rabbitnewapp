@@ -15,12 +15,12 @@
                 <form class="row g-3" action="{{ route('management.rabbits.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6">
-                        <label for="inputName" class="form-label">Imię</label>
+                        <label for="inputName" class="form-label"><strong>Imię</strong></label>
                         <input type="text" class="form-control" name="name" id="name">
                         @error('name')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="inputGender" class="form-label">Płeć</label>
+                        <label for="inputGender" class="form-label"><strong>Płeć</strong></label>
                         <select id="gender" name="gender" class="form-select">
                             <option value="Nieznana" selected>Nieznana</option>
                             <option value="Samiec">Samiec</option>
