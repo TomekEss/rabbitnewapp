@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\RabbitManagementController;
+use App\Http\Controllers\CageManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,9 +53,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
     //Edycja królików
     Route::get('/management/rabbits/edit/{rabbit}', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
+    Route::post('/management/rabbits/edit/{rabbit}/update', [RabbitManagementController::class, 'update'])->name('management.rabbits.update');
     //Usuwanie królików
     Route::post('/management/rabbits/delete/{rabbit}', [RabbitManagementController::class, 'delete'])->name('management.rabbits.delete');
 });
+
+// Management dla klatek
+Route::middleware('auth')->group(function () {
+    Route::get('/management/cages/index', [CageManagementController::class, 'index'])->name('management.cages.index');
+});
+
 
 // Edycja użytkownika
 Route::middleware('auth')->group(function () {

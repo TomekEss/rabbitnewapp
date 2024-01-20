@@ -37,7 +37,7 @@
           @endif
 
         <button class="btn btn-primary w-100 py-2" type="submit">Zaloguj</button>
-        <p class="mt-5 mb-3 text-body-secondary text-center">&copy;2023 - Tomasz Siemek</p>
+        <p class="mt-5 mb-3 text-body-secondary text-center">&copy;2024 - Tomasz Siemek</p>
       </form>
     </main>
 </div>

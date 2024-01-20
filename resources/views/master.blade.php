@@ -8,13 +8,6 @@
     <meta name="author" content="Tomasz Siemek">
     <title>Rabbit  Management v.1.0.0</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
-
-
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-
-{{--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">--}}
       <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
       <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
       <link href="{{ asset('fontawesome-free-6.5.1-web/css/all.min.css') }}" rel="stylesheet">
