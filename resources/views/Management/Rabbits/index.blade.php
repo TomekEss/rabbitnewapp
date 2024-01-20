@@ -32,9 +32,9 @@
                         </thead>
                         <tbody>
                         @foreach($rabbits as $rabbit)
-                        <tr class="table-active">
+                        <a class="table-active">
                             <td>{{ $rabbit->id }}</td>
-                            <td>{{ $rabbit->name }}</td>
+                            <td> <a href="{{ route('management.rabbits.show', ['rabbit' => $rabbit]) }}" style="text-decoration: none; color: inherit">{{ $rabbit->name }}</a></td>
                             <td>{{ $rabbit->gender }}
                                 @if($rabbit->gender == 'Samica')
                                     <i class="fa-solid fa-venus"></i>

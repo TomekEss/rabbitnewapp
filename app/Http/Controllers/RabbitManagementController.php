@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rabbits;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Http\Requests\StoreRabbitRequest;
@@ -19,20 +20,6 @@ class RabbitManagementController extends Controller
     public function create()
     {
         return view('Management.Rabbits.create');
-    }
-
-    public function edit(Rabbits $rabbit)
-    {
-        abort_if(!Auth::check(), '403', 'Brak dostępu');
-
-        return view('Management.Rabbits.edit', compact('rabbit'));
-    }
-
-    public function show(Rabbits $rabbit)
-    {
-        abort_if(!Auth::check(), '403', 'Brak dostępu');
-
-        return view('Management.Rabbits.show', compact('rabbit'));
     }
 
     public function store(StoreRabbitRequest $req)
@@ -57,12 +44,59 @@ class RabbitManagementController extends Controller
                 'photo' => $photo
             ]);
         }catch (\Illuminate\Database\QueryException $e) {
-            dd($e);
             return back();
         }
 
         return redirect()->route('management.rabbits.index');
     }
+
+    public function edit(Rabbits $rabbit)
+    {
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        return view('Management.Rabbits.edit', compact('rabbit'));
+    }
+
+    public function update(Request $req, Rabbits $rabbit)
+    {
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        if ($req->hasFile('photo'))
+        {
+            $file = $req->file('photo');
+            $photo = file_get_contents($file);
+
+            $rabbit->update([
+                'name' => $req->name,
+                'born' => $req->born,
+                'gender' => $req->gender,
+                'deworming' => $req->deworming,
+                'breed' => $req->breed,
+                'note' => $req->note,
+                'photo' => $photo
+            ]);
+        }else{
+            $rabbit->update([
+                'name' => $req->name,
+                'born' => $req->born,
+                'gender' => $req->gender,
+                'deworming' => $req->deworming,
+                'breed' => $req->breed,
+                'note' => $req->note,
+                ]);
+        }
+
+        return redirect(route('management.rabbits.show', $rabbit));
+    }
+
+    public function show(Rabbits $rabbit)
+    {
+        abort_if(!Auth::check(), '403', 'Brak dostępu');
+
+        return view('Management.Rabbits.show', compact('rabbit'));
+    }
+
+
 
     public function delete(Rabbits $rabbit)
     {
