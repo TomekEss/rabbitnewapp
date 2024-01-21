@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cages_eays', function (Blueprint $table) {
+        Schema::create('cages_eyes', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedBigInteger('id_cages_name');
-            $table->integer('eays_number');
+            $table->integer('eyes_number');
             $table->date('cleaning_day');
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cages_eays');
+        Schema::dropIfExists('cages_eyes');
     }
 };

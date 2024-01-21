@@ -7,13 +7,13 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <a href=" {{ route('management.rabbits.create') }}" class="btn btn-bd-primary">Dodaj królika +</a>
+                        <a href=" {{ route('management.cages.eye.create') }}" class="btn btn-bd-primary">Dodaj Oczko +</a>
                     </div>
                     <div class="col">
 
                     </div>
-                    <div class="col">
-
+                    <div class="col text-end">
+                        <a href=" {{ route('management.rabbits.create') }}" class="btn btn-info">Dodaj Klatkę +</a>
                     </div>
                 </div>
             </div>
@@ -22,15 +22,8 @@
                 <p class="card-text">Panel służący do zarządzania klatkami</p>
 
 
-
-
-
-
-
-
-
                 <table class="table table-dark table-hover">
-                    <thead>
+                    <thead class="text-center">
                     <th scope="col">ID</th>
                     <th scope="col">Nazwa klatki</th>
                     <th scope="col">Numer oczka</th>
@@ -38,14 +31,26 @@
                     <th scope="col">Liczba królików</th>
                     <th scope="col"></th>
                     </thead>
-                    <tbody>
-                    @foreach($cages_eays as $eay)
+                    <tbody class="text-center">
+                    @foreach($cages_eyes as $eye)
                         <a class="table-active">
-                            <td>{{ $eay->id }}</td>
-                            <td>{{ $eay->cages_name?->name }}</td>
-                            <td>{{ $eay->eays_number }}</td>
-                            <td>{{ $eay->cleaning_day }}</td>
-                            <td>{{ $eay->born }}</td>
+                            <td>{{ $eye->id }}</td>
+                            <td>
+                                {{ $eye->cages_name?->name }}
+                                @if($eye->cages_name?->name == 'Skrzynia')
+                                    <i class="fa-solid fa-toolbox" style="color: chocolate"></i>
+                                @elseif($eye->cages_name?->name == 'Metalowa')
+                                    <i class="fa-solid fa-building" style="color: lightgrey"></i>
+                                @elseif($eye->cages_name?->name == 'Południowa')
+                                    <i class="fa-solid fa-building" style="color: orangered"></i>
+                                @elseif($eye->cages_name?->name == 'Zielona')
+                                    <i class="fa-solid fa-building" style="color: green"></i>
+                                @else
+                                @endif
+                            </td>
+                            <td>{{ $eye->eyes_number }}</td>
+                            <td>{{ $eye->cleaning_day }}</td>
+                            <td>{{ $eye->born }}</td>
                             <td>
 {{--                                <div class="d-flex align-content-center justify-content-center">--}}
 {{--                                    <a href="{{ route('management.rabbits.show', ['rabbit' => $rabbit]) }}" class="btn bg-info mx-2">Szczegóły</a>--}}
@@ -63,21 +68,8 @@
                     </tbody>
                 </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                 <div class="d-flex align-items-end justify-content-end"
-                {!! $cages_eays->links() !!}
+                {!! $cages_eyes->links() !!}
 
             </div>
         </div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cages_name', function (Blueprint $table) {
             $table->id()->autoIncrement();
             $table->string('name')->unique();
-            $table->integer('eays_number');
+            $table->integer('eyes_number');
             $table->timestamps();
         });
     }
