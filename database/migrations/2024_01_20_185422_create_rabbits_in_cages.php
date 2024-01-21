@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('cages_eyes', function (Blueprint $table) {
-            $table->foreign('id_cages_name')->references('id')->on('cages_name')->onDelete('cascade');
+        Schema::create('rabbits_in_cages', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cages_eyes', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('rabbits_in_cages');
     }
 };

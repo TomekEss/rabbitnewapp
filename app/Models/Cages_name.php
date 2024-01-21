@@ -15,11 +15,11 @@ class Cages_name extends Model
     protected $fillable =
         [
             'name',
-            'eays_number'
+            'eyes_number'
         ];
 
-    public function cages_eay(): HasMany
+    public function cages_eye(): HasMany
     {
-        return $this->hasMany(Cages_eays::class, 'id_cages_name', 'id');
+        return $this->hasMany(Cages_eyes::class, 'id_cages_name', 'id');
     }
 }
