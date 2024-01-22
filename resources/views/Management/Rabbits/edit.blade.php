@@ -52,6 +52,18 @@
                             @error('note')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
                         </div>
                     </div>
+                    <div class="col-md-3">
+                        <label for="inputCageName" class="form-label"><strong>Nazwa klatki</strong></label>
+                        <select id="cages_name" name="cages_name" class="form-select">
+                            @foreach($cages_name as $cn)
+                                <option value="{{ $cn->id }}">{{ $cn->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('cage_name')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
                     <div class="col-12 d-flex align-items-end">
 
                         <button type="submit" style="width: 150px" class="btn btn-primary ms-auto"><strong>Zapisz</strong></button>

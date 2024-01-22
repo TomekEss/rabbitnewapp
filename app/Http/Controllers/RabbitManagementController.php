@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cages_eyes;
+use App\Models\Cages_name;
 use App\Models\Rabbits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +56,10 @@ class RabbitManagementController extends Controller
     {
         abort_if(!Auth::check(), '403', 'Brak dostępu');
 
-        return view('Management.Rabbits.edit', compact('rabbit'));
+        $cages_eye = Cages_eyes::all();
+        $cages_name = Cages_name::all();
+
+        return view('Management.Rabbits.edit', compact(['rabbit', 'cages_name', 'cages_eye']));
     }
 
     public function update(Request $req, Rabbits $rabbit)
