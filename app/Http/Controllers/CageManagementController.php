@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CageEyeCreateRequest;
 use App\Models\Cages_eyes;
 use App\Models\Cages_name;
+use Illuminate\Database\QueryException;
 
 class CageManagementController extends Controller
 {
@@ -25,7 +26,20 @@ class CageManagementController extends Controller
 
     public function storeEye(CageEyeCreateRequest $req)
     {
-        dd('sukces');
+        $cage_name = $req->cage_name;
+
+
+        try {
+            Cages_eyes::create([
+                'id_cages_name' => $req->cage_name,
+                'eyes_number' => $req->eye_number,
+                'cleaning_day' => $req->cleaning_date,
+            ]);
+        }catch (QueryException $e)
+        {
+                return redirect()->back()->withInput()->withErrors($e);
+        }
+
 
         return redirect(route('management.cages.index'));
     }
