@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/management/rabbits/show/{rabbit}', [RabbitManagementController::class, 'show'])->name('management.rabbits.show');
     //Dodawanie królików
     Route::get('/management/rabbits/create', [RabbitManagementController::class, 'create'])->name('management.rabbits.create');
-    Route::post('/management/rabbits/create',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
+    Route::post('/management/rabbits/store',[RabbitManagementController::class, 'store'])->name('management.rabbits.store');
     //Edycja królików
     Route::get('/management/rabbits/edit/{rabbit}', [RabbitManagementController::class, 'edit'])->name('management.rabbits.edit');
     Route::post('/management/rabbits/edit/{rabbit}/update', [RabbitManagementController::class, 'update'])->name('management.rabbits.update');

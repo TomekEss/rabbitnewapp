@@ -19,9 +19,9 @@ class Rabbits_in_cages extends Model
         'cages_name_id',
     ];
 
-    public function rabbit():HasMany
+    public function rabbit():HasOne
     {
-        return $this->hasMany(Rabbits::class, 'id', 'rabbit_id');
+        return $this->hasOne(Rabbits::class, 'id', 'rabbit_id');
     }
 
     public function cage_eye():HasOne
