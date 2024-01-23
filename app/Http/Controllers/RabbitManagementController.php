@@ -56,10 +56,7 @@ class RabbitManagementController extends Controller
     {
         abort_if(!Auth::check(), '403', 'Brak dostępu');
 
-        $cages_eye = Cages_eyes::all();
-        $cages_name = Cages_name::all();
-
-        return view('Management.Rabbits.edit', compact(['rabbit', 'cages_name', 'cages_eye']));
+        return view('Management.Rabbits.edit', compact(['rabbit']));
     }
 
     public function update(Request $req, Rabbits $rabbit)
