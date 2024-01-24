@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('welcome') }}">Rabbit Management v.1.0.0</a>

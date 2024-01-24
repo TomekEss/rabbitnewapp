@@ -67,10 +67,6 @@
                     @endforeach
                     </tbody>
                 </table>
-
-                <div class="d-flex align-items-end justify-content-end"
-                {!! $cages_eyes->links() !!}
-
             </div>
         </div>
     </div>

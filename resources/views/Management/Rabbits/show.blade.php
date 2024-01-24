@@ -83,8 +83,6 @@
                                 <textarea id="w3review" name="w3review" disabled>{{ $rabbit->note }} </textarea>
                                 @else
                                 @endif
-
-
                             </div>
 
 {{--                            Prawa strona CARD ze zdjeciem                 --}}
@@ -99,18 +97,19 @@
                                     <img src="data:image/jpeg;base64,{{ base64_encode($rabbit->photo) }}" alt="" width="500" height="700" class="card-img">
                                 @endif
                             </div>
-                            </div>
-                    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-                        <div class="btn-group" role="group" aria-label="First group">
-                    <a href="{{ route('management.rabbits.index')}}" class="btn btn-primary mt-2"><i class="fa-solid fa-arrow-rotate-left"></i> Powrót do listy</a>
                         </div>
 
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                    <a href="{{ route('management.rabbits.edit', ['rabbit' => $rabbit]) }}" class="btn btn-primary mt-2"><i class="fa-regular fa-pen-to-square"></i> Edytuj</a>
+                            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+                                <div class="btn-group" role="group" aria-label="First group">
+                                    <a href="{{ route('management.rabbits.index')}}" class="btn btn-primary mt-2"><i class="fa-solid fa-arrow-rotate-left"></i> Powrót do listy</a>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <a href="{{ route('management.rabbits.edit', ['rabbit' => $rabbit]) }}" class="btn btn-primary mt-2"><i class="fa-regular fa-pen-to-square"></i> Edytuj</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
                 </div>
         </div>
 
