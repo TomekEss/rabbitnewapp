@@ -53,6 +53,7 @@
                     <div class="col-md-3">
                         <label for="inputCageName" class="form-label"><strong>Nazwa klatki</strong></label>
                         <select id="cages_name" name="cages_name" class="form-select" wire:model.live="cages_name_selected">
+                                <option value="">Wybierz klatkę...</option>
                             @foreach($cages_name as $key => $cn)
                                 <option value="{{ $cn->id }}">{{ $cn->name }}</option>
                             @endforeach
@@ -62,6 +63,7 @@
                     <div class="col-md-3">
                         <label for="inputCageName" class="form-label"><strong>Nazwa klatki</strong></label>
                         <select id="cages_name" name="cages_name" class="form-select" wire:model.live="cages_eye_selected">
+                                <option value="">Wybierz numer oczka...</option>
                             @foreach($cages_eye as $ce)
                                 <option value="{{ $ce->id }}">{{ $ce->eyes_number }}</option>
                             @endforeach
@@ -70,9 +72,9 @@
                     </div>
 
                     <div class="col-12 d-flex align-items-end">
+                        <a href="{{ route('management.rabbits.index') }}" type="button" style="width: 165px" class="btn btn-primary"><i class="fa-solid fa-arrow-rotate-left"></i><strong> Powrót do listy</strong></a>
 
-                        <button type="submit" style="width: 150px" class="btn btn-primary ms-auto"><strong>Zapisz</strong></button>
-
+                        <button type="submit" style="width: 150px" class="btn btn-primary ms-auto"><i class="fa-regular fa-floppy-disk"></i><strong> Zapisz</strong></button>
                     </div>
                 </form>
             </div>

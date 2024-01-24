@@ -26,10 +26,13 @@
   <body>
 
   <div class="starter" style="padding-bottom: 80px;"></div>
-
     @yield('content')
-  @include('sweetalert::alert')
+    @include('sweetalert::alert')
   </body>
+
+
+  {{View::make('layouts.footer')}}
+
 
   <script src="{{ asset('js/bootstrap.js') }}"></script>
   <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
