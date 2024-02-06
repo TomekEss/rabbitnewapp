@@ -7,6 +7,7 @@ use App\Models\Cages_name;
 use App\Models\Rabbits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Http\Requests\StoreRabbitRequest;
 
@@ -14,7 +15,17 @@ class RabbitManagementController extends Controller
 {
     public function index(): View
     {
-        $rabbits = Rabbits::paginate(15);
+        $rabbit = Rabbits::with('rabbit_in_cage')->get();
+
+        $rabbitssort = $rabbit->sortBy(function($item){
+            return $item->rabbit_in_cage->eye->eyes_number;
+        });
+
+        $rabbits = $rabbitssort->groupBy(function($item){
+            return $item->rabbit_in_cage->cage_name->name;
+        });
+
+
 
         return view('Management.Rabbits.index', compact('rabbits'));
     }
