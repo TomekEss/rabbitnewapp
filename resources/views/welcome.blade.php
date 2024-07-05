@@ -33,6 +33,17 @@
         </div>
         <div class="col">
             <a href="{{ route('management.cages.index') }}" class="card h-100" style="text-decoration: none; color: inherit">
+                <img src={{ asset('images/rabsex.png') }} class="card-img-top" alt="finmancard" />
+                <div class="card-body text-center">
+                    <h5 class="card-title"><strong>Wykoty</strong></h5>
+                    <p class="card-text">
+                        Panel służący do zarządzania terminami zakotów oraz wykotów.
+                    </p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{{ route('management.cages.index') }}" class="card h-100" style="text-decoration: none; color: inherit">
                 <img src={{ asset('images/finmancard.png') }} class="card-img-top" alt="finmancard" />
                 <div class="card-body text-center">
                     <h5 class="card-title"><strong>Finanse</strong></h5>
