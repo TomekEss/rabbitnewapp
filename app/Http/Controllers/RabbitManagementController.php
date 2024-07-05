@@ -72,34 +72,7 @@ class RabbitManagementController extends Controller
 
     public function update(Request $req, Rabbits $rabbit)
     {
-        abort_if(!Auth::check(), '403', 'Brak dostępu');
 
-        if ($req->hasFile('photo'))
-        {
-            $file = $req->file('photo');
-            $photo = file_get_contents($file);
-
-            $rabbit->update([
-                'name' => $req->name,
-                'born' => $req->born,
-                'gender' => $req->gender,
-                'deworming' => $req->deworming,
-                'breed' => $req->breed,
-                'note' => $req->note,
-                'photo' => $photo
-            ]);
-        }else{
-            $rabbit->update([
-                'name' => $req->name,
-                'born' => $req->born,
-                'gender' => $req->gender,
-                'deworming' => $req->deworming,
-                'breed' => $req->breed,
-                'note' => $req->note,
-                ]);
-        }
-
-        return redirect(route('management.rabbits.show', $rabbit));
     }
 
     public function show(Rabbits $rabbit)

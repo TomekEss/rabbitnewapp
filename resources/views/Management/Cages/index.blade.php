@@ -50,7 +50,7 @@
                             </td>
                             <td>{{ $eye->eyes_number }}</td>
                             <td>{{ $eye->cleaning_day }}</td>
-                            <td>{{ $eye->born }}</td>
+                            <td>{{ $eye->rabbits_in_cages_count }}</td>
                             <td>
 {{--                                <div class="d-flex align-content-center justify-content-center">--}}
 {{--                                    <a href="{{ route('management.rabbits.show', ['rabbit' => $rabbit]) }}" class="btn bg-info mx-2">Szczegóły</a>--}}

@@ -12,7 +12,7 @@ class CageManagementController extends Controller
     public function index()
     {
         $cages_name = Cages_name::with('cages_eay');
-        $cages_eyes = Cages_eyes::with('cages_name')->paginate(25);
+        $cages_eyes = Cages_eyes::with(['rabbits_in_cages', 'cages_name'])->withCount('rabbits_in_cages')->paginate(25);
 
         return view('Management.Cages.index', compact(['cages_name', 'cages_eyes']));
     }
