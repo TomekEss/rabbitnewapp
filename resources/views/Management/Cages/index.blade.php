@@ -13,7 +13,7 @@
 
                     </div>
                     <div class="col text-end">
-                        <a href=" {{ route('management.rabbits.create') }}" class="btn btn-info">Dodaj Klatkę +</a>
+                        <a href=" {{ route('management.cages.create') }}" class="btn btn-info">Dodaj Klatkę +</a>
                     </div>
                 </div>
             </div>
