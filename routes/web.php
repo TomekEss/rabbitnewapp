@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/management/cages/index', [CageManagementController::class, 'index'])->name('management.cages.index');
     Route::get('/management/cages/eye/create', [CageManagementController::class, 'createEay'])->name('management.cages.eye.create');
     Route::post('/management/cages/eye/store', [CageManagementController::class, 'storeEye'])->name('management.cages.eye.store');
+    Route::get('/management/cages/create', [CageManagementController::class, 'createCage'])->name('management.cages.create');
 });
 
 

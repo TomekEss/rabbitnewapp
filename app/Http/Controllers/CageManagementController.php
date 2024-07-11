@@ -43,4 +43,9 @@ class CageManagementController extends Controller
 
         return redirect(route('management.cages.index'));
     }
+
+    public function createCage()
+    {
+        return view('Management.Cages.create');
+    }
 }

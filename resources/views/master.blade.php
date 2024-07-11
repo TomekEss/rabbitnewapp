@@ -16,6 +16,7 @@
 
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/sign-in.css') }}" rel="stylesheet">
+      <x-livewire-alert::scripts />
 
   </head>
 
