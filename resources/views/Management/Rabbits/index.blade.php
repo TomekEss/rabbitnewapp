@@ -34,6 +34,7 @@
                 <table class="table table-dark table-hover text-center">
                     <thead>
                       <th scope="col">ID</th>
+                      <th scope="col">Zdjęcie</th>
                       <th scope="col">Nazwa</th>
                       <th scope="col">Płeć</th>
                       <th scope="col">Rasa</th>
@@ -49,6 +50,12 @@
                             <tr class="table-active">
 
                                 <td>{{ $rabbit->id ?? '' }}</td>
+                                <td>
+                                    @if(isset($rabbit->photo))
+                                    <img src="{{ asset('kroliki/' . $rabbit->photo) }}" alt="{{ $rabbit->name }}" width="30" height="60" class="card-img">
+                                    @else
+                                    @endif
+                                </td>
                                 <td>{{ $rabbit->name }}</td>
                                 <td>{{ $rabbit->gender }}
                                     @if($rabbit->gender == 'Samica')

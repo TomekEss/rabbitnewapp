@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cages_eyes;
-use App\Models\Cages_name;
-use App\Models\Rabbits;
+use App\Http\Requests\StoreRabbitRequest;
+use App\Models\Rabbit\Rabbits;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Http\Requests\StoreRabbitRequest;
 
 class RabbitManagementController extends Controller
 {
@@ -18,11 +15,11 @@ class RabbitManagementController extends Controller
         $rabbit = Rabbits::with('rabbit_in_cage')->get();
 
         $rabbitssort = $rabbit->sortBy(function($item){
-            return $item->rabbit_in_cage->eye->eyes_number;
+            return $item->rabbit_in_cage?->eye->eyes_number;
         });
 
         $rabbits = $rabbitssort->groupBy(function($item){
-            return $item->rabbit_in_cage->cage_name->name;
+            return $item->rabbit_in_cage?->cage_name->name;
         });
 
 

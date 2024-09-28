@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Rabbit;
 
+use App\Models\Cage\CagesEye;
+use App\Models\Cage\CagesName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Rabbits_in_cages extends Model
+class RabbitsInCages extends Model
 {
     use HasFactory;
 
@@ -26,11 +27,11 @@ class Rabbits_in_cages extends Model
 
     public function eye():HasOne
     {
-        return $this->hasOne(Cages_eyes::class, 'id', 'cage_eye');
+        return $this->hasOne(CagesEye::class, 'id', 'cage_eye');
     }
 
     public function cage_name():HasOne
     {
-        return $this->hasOne(Cages_name::class, 'id', 'cages_name_id');
+        return $this->hasOne(CagesName::class, 'id', 'cages_name_id');
     }
 }

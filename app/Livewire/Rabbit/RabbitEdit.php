@@ -2,14 +2,18 @@
 
 namespace App\Livewire\Rabbit;
 
-use App\Models\Cages_eyes;
-use App\Models\Cages_name;
-use App\Models\Rabbits;
-use App\Models\Rabbits_in_cages;
+use App\Models\Cage\CagesEye;
+use App\Models\Cage\CagesName;
+use App\Models\Rabbit\Dicts\RabbitTypeDict;
+use App\Models\Rabbit\Rabbits;
+use App\Models\Rabbit\RabbitsInCages;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class RabbitEdit extends Component
 {
+    use WithFileUploads;
     public Rabbits $rabbit;
 
     public $name;
@@ -23,6 +27,8 @@ class RabbitEdit extends Component
     public $cages_name_selected;
     public $cages_eye = [];
     public $cages_eye_selected;
+    public $rabbit_types;
+    public $rabbit_types_selected;
 
     public $rabbit_in_cage;
 
@@ -33,24 +39,25 @@ class RabbitEdit extends Component
 
     public function mount()
     {
-        $this->rabbit_in_cage = Rabbits_in_cages::where('rabbit_id', '=', $this->rabbit->id)->first();
+        $this->rabbit_in_cage = RabbitsInCages::where('rabbit_id', '=', $this->rabbit->id)->first();
         $this->cages_name_selected = $this->rabbit_in_cage->cages_name_id ?? null;
         $this->cages_eye_selected = $this->rabbit_in_cage->cage_eye ?? null;
         $this->name = $this->rabbit->name;
         $this->gender = $this->rabbit->gender;
         $this->born = $this->rabbit->born;
         $this->deworming = $this->rabbit->deworming;
-        $this->photo = $this->rabbit->photo;
+//        $this->photo = $this->rabbit->photo;
         $this->note = $this->rabbit->note;
-        $this->breed = $this->rabbit->breed;
-        $this->cages_name = Cages_name::all();
-        $this->cages_eye = Cages_eyes::where('id_cages_name', '=', $this->cages_name_selected)->get(['id','eyes_number']);;
+        $this->rabbit_types = RabbitTypeDict::all();
+        $this->rabbit_types_selected = $this->rabbit->breed;
+        $this->cages_name = CagesName::all();
+        $this->cages_eye = CagesEye::where('id_cages_name', '=', $this->cages_name_selected)->get(['id','eyes_number']);;
     }
 
     public function updatedCagesNameSelected($value)
     {
         $this->cages_eye = [];
-        $this->cages_eye = Cages_eyes::where('id_cages_name', '=', $value)->get(['id','eyes_number']);
+        $this->cages_eye = CagesEye::where('id_cages_name', '=', $value)->get(['id','eyes_number']);
     }
 
     public function rules()
@@ -69,28 +76,41 @@ class RabbitEdit extends Component
     {
         $this->validate();
 
-        $this->rabbit->update([
-            'name' => $this->name,
-            'gender' => $this->gender,
-            'born' => $this->born,
-            'derworming' => $this->deworming,
-            'breed' => $this->breed,
-        ]);
+        DB::transaction(function () {
 
-        if ($this->rabbit->rabbit_in_cage == null && $this->cages_name_selected != null && $this->cages_eye_selected != null){
-            Rabbits_in_cages::create([
-                'rabbit_id' => $this->rabbit->id,
-                'cage_eye' => $this->cages_eye_selected,
-                'cages_name_id' => $this->cages_name_selected,
+            $this->rabbit->update([
+                'name' => $this->name,
+                'gender' => $this->gender,
+                'born' => $this->born,
+                'derworming' => $this->deworming,
+                'breed' => $this->breed,
             ]);
-        }
 
-        if ($this->rabbit->rabbit_in_cage != null && $this->cages_name_selected != null && $this->cages_eye_selected != null) {
-            $this->rabbit->rabbit_in_cage->update([
-                'cage_eye' => $this->cages_eye_selected,
-                'cages_name_id' => $this->cages_name_selected,
-            ]);
-        }
+            if ($this->photo != null)
+            {
+                $this->photo->storeAs(path: 'kroliki', name: $this->photo->getClientOriginalName());
+
+                $this->rabbit->update([
+                   'photo' => $this->photo->getClientOriginalName(),
+                ]);
+            }
+
+            if ($this->rabbit->rabbit_in_cage == null && $this->cages_name_selected != null && $this->cages_eye_selected != null){
+                RabbitsInCages::create([
+                    'rabbit_id' => $this->rabbit->id,
+                    'cage_eye' => $this->cages_eye_selected,
+                    'cages_name_id' => $this->cages_name_selected,
+                ]);
+            }
+
+            if ($this->rabbit->rabbit_in_cage != null && $this->cages_name_selected != null && $this->cages_eye_selected != null) {
+                $this->rabbit->rabbit_in_cage->update([
+                    'cage_eye' => $this->cages_eye_selected,
+                    'cages_name_id' => $this->cages_name_selected,
+                ]);
+            }
+
+        });
 
         return redirect(route('management.rabbits.index'));
     }

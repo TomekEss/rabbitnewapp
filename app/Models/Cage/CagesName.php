@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Cage;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Cages_name extends Model
+class CagesName extends Model
 {
     use HasFactory;
 
@@ -20,6 +20,6 @@ class Cages_name extends Model
 
     public function cages_eye(): HasMany
     {
-        return $this->hasMany(Cages_eyes::class, 'id_cages_name', 'id');
+        return $this->hasMany(Cages_eye::class, 'id_cages_name', 'id');
     }
 }

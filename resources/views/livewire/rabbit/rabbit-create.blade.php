@@ -7,6 +7,7 @@
         </div>
     </div>
     <div class="card-body">
+        @dump($photo)
         <form class="row g-3" wire:submit="add_rabbit">
             @csrf
             <div class="col-md-6">
@@ -25,8 +26,13 @@
             </div>
             <div class="col-md-6">
                 <label for="inputBreed" class="form-label">Rasa</label>
-                <input type="text" class="form-control" name="breed" id="breed" wire:model="breed">
-                @error('breed')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
+                <select class="form-select" wire:model.live="rabbit_types_selected" name="rabbit_type">
+                    <option value="">Wybierz typ...</option>
+                    @foreach($rabbit_types as $rt)
+                        <option value="{{ $rt->id }}">{{ $rt->name }}</option>
+                    @endforeach
+                </select>
+                @error('rabbit_types_selected')<span class="col-md-4 help-block text-danger"><strong>{{ $message }}</strong></span>@enderror
             </div>
             <div class="col-md-6">
                 <label for="inputBorn" class="form-label">Data urodzenia</label>
