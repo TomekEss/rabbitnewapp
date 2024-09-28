@@ -8,7 +8,7 @@
 </style>
 
 <div class="container">
-    <div class="row row-cols-1 row-cols-lg-3 g-4">
+    <div class="row row-cols-1 row-cols-lg-5 g-4">
         <div class="col">
             <a href="{{ route('management.rabbits.index') }}" class="card h-100" style="text-decoration: none; color: inherit">
                 <img src={{ asset('images/rabmancard.png') }} class="card-img-top" alt="rabmancard"/>

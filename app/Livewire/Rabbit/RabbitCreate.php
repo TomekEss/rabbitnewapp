@@ -2,14 +2,17 @@
 
 namespace App\Livewire\Rabbit;
 
-use App\Models\Cages_eyes;
-use App\Models\Cages_name;
-use App\Models\Rabbits;
-use App\Models\Rabbits_in_cages;
+use App\Models\Cage\CagesEye;
+use App\Models\Cage\CagesName;
+use App\Models\Rabbit\Dicts\RabbitTypeDict;
+use App\Models\Rabbit\Rabbits;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class RabbitCreate extends Component
 {
+    use WithFileUploads;
+
     public $name;
     public $gender;
     public $born;
@@ -21,6 +24,8 @@ class RabbitCreate extends Component
     public $cages_name_selected;
     public $cages_eye = [];
     public $cages_eye_selected;
+    public $rabbit_types;
+    public $rabbit_types_selected;
 
     public $rabbit_in_cage;
     public function render()
@@ -30,36 +35,48 @@ class RabbitCreate extends Component
 
     public function mount()
     {
-        $this->cages_name = Cages_name::all();
+        $this->cages_name = CagesName::all();
+        $this->rabbit_types = RabbitTypeDict::all();
     }
 
     public function updatedCagesNameSelected($value)
     {
         $this->cages_eye = [];
-        $this->cages_eye = Cages_eyes::where('id_cages_name', '=', $value)->get(['id','eyes_number']);
+        $this->cages_eye = CagesEye::where('id_cages_name', '=', $value)->get(['id','eyes_number']);
     }
 
     public function add_rabbit()
     {
         $this->validate();
 
-        $rabbit = Rabbits::create([
-            'name' => $this->name,
-            'gender' => $this->gender,
-            'born' => $this->born,
-            'deworming' => $this->deworming,
-            'photo' => $this->photo,
-            'note' => $this->note,
-            'breed' => $this->breed,
-        ]);
+        try {
+            $rabbit = Rabbits::create([
+                'name' => $this->name,
+                'gender' => $this->gender,
+                'born' => $this->born,
+                'deworming' => $this->deworming,
+                'photo' => $this->photo->getClientOriginalName(),
+                'note' => $this->note,
+                'breed' => $this->rabbit_types_selected,
+            ]);
 
-        $rabbitid = $rabbit->id;
+            if ($this->photo != null){
+                $this->photo->store(path: 'kroliki');
+            }
 
-        Rabbits_in_cages::create([
-            'rabbit_id' => $rabbitid,
-            'cage_eye' => $this->cages_eye_selected,
-            'cages_name_id' => $this->cages_name_selected,
-        ]);
+        }catch (\Exception $exception){
+            session()->flash('error', $exception->getMessage());
+        }
+
+        //Jeżeli zostal wybrany numer oczka oraz nazwa klatki to zapisz
+        if ($this->cages_eye_selected != null && $this->cages_name_selected != null)
+        {
+            Rabbits_inCages::create([
+                'rabbit_id' => $rabbit->id,
+                'cage_eye' => $this->cages_eye_selected,
+                'cages_name_id' => $this->cages_name_selected,
+            ]);
+        }
 
         return redirect(route('management.rabbits.index'));
     }
@@ -71,18 +88,18 @@ class RabbitCreate extends Component
             'born' => 'nullable',
             'gender' => 'required',
             'deworming' => 'nullable',
-            'breed' => 'nullable',
+            'rabbit_types_selected' => 'nullable',
             'note' => 'nullable',
             'photo' => 'nullable|image|max:2048',
-            'cages_name_selected' => 'required',
-            'cages_eye_selected' => 'required'
+            'cages_name_selected' => 'nullable',
+            'cages_eye_selected' => 'nullable'
         ];
     }
 
     protected $messages = [
         'name.required' => 'Nazwa jest wymagana',
         'gender.required' => 'Data urodzenia jest wymagana',
-        'cages_name_selected.required' => 'Nazwa klatki jest wymagana',
-        'cages_eye_selected.required' => 'Numer oczka jest wymagana',
+//        'cages_name_selected.required' => 'Nazwa klatki jest wymagana',
+//        'cages_eye_selected.required' => 'Numer oczka jest wymagana',
     ];
 }

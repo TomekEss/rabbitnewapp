@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Rabbit;
 
+use App\Models\Rabbit\Dicts\RabbitTypeDict;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -16,6 +17,11 @@ class Rabbits extends Model
 
     public function rabbit_in_cage():HasOne
     {
-        return $this->hasOne(Rabbits_in_cages::class, 'rabbit_id', 'id');
+        return $this->hasOne(RabbitsInCages::class, 'rabbit_id', 'id');
+    }
+
+    public function rabbit_type():HasOne
+    {
+        return $this->hasOne(RabbitTypeDict::class, 'id', 'breed');
     }
 }

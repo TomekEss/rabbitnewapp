@@ -45,7 +45,7 @@
                                                 <a>Rasa:</a>
                                             </td>
                                             <td>
-                                                {{ $rabbit->breed }}
+                                                {{ $rabbit->rabbit_type?->name}}
                                             </td>
                                         </tr>
 
@@ -94,7 +94,7 @@
                                 @elseif($rabbit->photo == null && $rabbit->gender == 'Nieznana')
                                         <img src="{{ asset('images/undifine.png') }}" alt="" width="500" height="700" class="card-img">
                                 @else
-                                    <img src="data:image/jpeg;base64,{{ base64_encode($rabbit->photo) }}" alt="" width="500" height="700" class="card-img">
+                                    <img src="{{ asset('kroliki/' . $rabbit->photo) }}" alt="{{ $rabbit->name }}" width="500" height="700" class="card-img">
                                 @endif
                             </div>
                         </div>
